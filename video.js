@@ -28,10 +28,28 @@ var tick = function () {
 };
 tick();
 
+var sendReqPost = (cod) => {
+    var http = new XMLHttpRequest();
+    var url = 'post_data.php';
+    var params = 'cod='+cod;
+    http.open('POST', url, true);
+
+    //Send the proper header information along with the request
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            alert(http.responseText);
+        }
+    }
+    http.send(params);
+} 
+
 var decodeCallback = function (ptr, len, resultIndex, resultCount) {
   var result = new Uint8Array(ZXing.HEAPU8.buffer, ptr, len);
   console.log(String.fromCharCode.apply(null, result));
   barcode_result.textContent = String.fromCharCode.apply(null, result);
+  sendReqPost(String.fromCharCode.apply(null, result));
   buttonGo.disabled = false;
   if (isPC) {
     canvas.style.display = 'block';
