@@ -35,36 +35,13 @@
         .catch(err => console.error('Error', err));
     }
   </script>
-
-<script>
-    // Call the function whenever the page is refreshed
-$(function () {
-    if (localStorage.getItem('newPost')) {
-	// Set keys and values for voting for your favorite article	var names = ['first', 'last', 'article'];
-        var values = localStorage.getItem('newPost').split(',');
-	// Form to append inputs to
-	var form = $("#offlinePostForm"); 
-	// Create and append inputs
-	for (var i = 0; i < names.length; i++) {
-	    var input = '<input type="hidden" name="' 
-		+ names[i] + '" value="' 
-		+ values[i] + '">';
-	    $(input).appendTo(form);
-	}
-	// Clear newPost from localStorage and submit the form
-	localStorage.removeItem('newPost');
-	form.submit();
-    }
-});
-</script>
-
+  
   <script src="jquery-1.11.3.min.js"></script>
   
 </head>
 <body>
-<h1> teste5</h1>
-
-<div>Barcode result: <span id="dbr"></span></div>
+<h1>Projeto Chamada Teste 7</h1>
+  <div>Barcode result: <span id="dbr"></span></div>
   <div class="select">
     <label for="videoSource">Video source: </label><select id="videoSource"></select>
   </div>
@@ -74,11 +51,6 @@ $(function () {
     <canvas id="pcCanvas" width="640" height="480" style="display: none; float: bottom;"></canvas>
     <canvas id="mobileCanvas" width="240" height="320" style="display: none; float: bottom;"></canvas>
   </div>
-
-
-<!-- Empty form for voting for your favorite article -->
-<form method="post" action="/vote" id="offlinePostForm"></form>
-
 </body>
 
 <script async src="zxing.js"></script>

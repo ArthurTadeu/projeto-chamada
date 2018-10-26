@@ -10,7 +10,7 @@ importScripts('./build/sw-toolbox.js');
 function store() {
     var newPost = ""; // Inputted values
     // Iterate through the inputs
-    $("input").each(function() {
+    $("input").each(function () {
         newPost += $(this).val() + ",";
     });
     // Get rid of the last comma
@@ -20,19 +20,19 @@ function store() {
 }
 
 self.toolbox.options.cache = {
-  name: 'pwa-cache'
+    name: 'pwa-cache'
 };
 
 // pre-cache our key assets
 self.toolbox.precache(
-  [
-    'index.php',
-    'manifest.json',
-    'video.js',
-    'jquery-1.11.3.min.js',
-    'web.config',
-    'zxing.js'
-  ]
+    [
+        'index.php',
+        'manifest.json',
+        'video.js',
+        'jquery-1.11.3.min.js',
+        'web.config',
+        'zxing.js'
+    ]
 );
 
 // dynamically cache any other local assets
@@ -47,6 +47,7 @@ self.addEventListener('fetch', function(event) {
     var req = event.request.clone();
     if (req.clone().method == "GET") {
         event.respondWith(  
+         
 	    // Get the response from the network
 	    return fetch(req.clone()).then(function(response) {
 	       // And store it in the cache for later
@@ -54,25 +55,9 @@ self.addEventListener('fetch', function(event) {
 	    });	
         );
     }
-    if(req.clone().method == "POST"){
-     event.respondWith(
-    // Try to get the response from the network
-    fetch(event.request.clone()).catch(function() {
-	// If it doesn't work, post a failure message to the client
-	self.clients.match(thisClient).then(function(client) {
-    	    client.postMessage({
-        	message: "Post unsuccessful.",
- 		    alert: alert // A string we instantiated earlier
-    	    });
-	});
-	// Respond with the page that the request originated from
-	return caches.match(event.request.clone().referrer);
-    });
-);   
-    }
 });
 
-navigator.serviceWorker.addEventListener('message', function(event) {
+navigator.serviceWorker.addEventListener('message', function (event) {
     alert(event.data.alert);
     store();
 });

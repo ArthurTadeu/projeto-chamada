@@ -32,8 +32,6 @@ var decodeCallback = function (ptr, len, resultIndex, resultCount) {
   var result = new Uint8Array(ZXing.HEAPU8.buffer, ptr, len);
   console.log(String.fromCharCode.apply(null, result));
   barcode_result.textContent = String.fromCharCode.apply(null, result);
-  //Aqui mandar requisição para registrar no db
-  
   buttonGo.disabled = false;
   if (isPC) {
     canvas.style.display = 'block';
